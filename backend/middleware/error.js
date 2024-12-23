@@ -33,15 +33,6 @@ const handleApiError = (error, res, resourceName) => {
     }
 };
 
-// Example usage of handleApiError for fetching hotels
-const fetchHotels = async (req, res) => {
-    try {
-        // ...code to fetch hotels...
-    } catch (error) {
-        handleApiError(error, res, 'hotels');
-    }
-};
-
 // Middleware to handle errors
 const errorHandler = (err, req, res, next) => {
     try {
@@ -57,4 +48,4 @@ const errorHandler = (err, req, res, next) => {
     }
 };
 
-module.exports = { errorHandler, handleApiError, fetchHotels };
+module.exports = { errorHandler, handleApiError };
