@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import '../Styles/hotels.css';
 import axios from 'axios';
+import HotelCard from '../Components/HotelCard';
 
 interface Room {
   roomType: string;
@@ -31,7 +32,7 @@ const HotelDetails: React.FC = () => {
         const response = await axios.get(`http://localhost:5000/api/hotels/${id}`);
         setHotel(response.data);
       } catch (err: any) {
-        setError(err.response?.data?.message || 'Hotel Not Found.');
+        setError('Hotel Not Found.');
       } finally {
         setLoading(false);
       }
@@ -67,29 +68,7 @@ const HotelDetails: React.FC = () => {
 
   return (
     <div className="hotel-details-container">
-      <h1 className="hotel-name">{hotel.name}</h1>
-      <img src={hotel.imageUrl} alt={hotel.name} className="hotel-image" />
-      <p className="hotel-location"><strong>Location:</strong> {hotel.location}</p>
-      <p className="hotel-rating"><strong>Rating:</strong> {hotel.rating} ⭐</p>
-      <p className="hotel-boardBasis"><strong>Board Basis:</strong> {hotel.boardBasis}</p>
-      <div className="hotel-dates">
-        <h3>Dates of Travel:</h3>
-        <ul>
-          {hotel.datesOfTravel.map((date, index) => (
-            <li key={index}>{date}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="hotel-rooms">
-        <h3>Available Rooms:</h3>
-        <ul>
-          {hotel.rooms.map((room, index) => (
-            <li key={index}>
-              {room.roomType} - {room.amount} available
-            </li>
-          ))}
-        </ul>
-      </div>
+      <HotelCard hotel={hotel} />
     </div>
   );
 };
